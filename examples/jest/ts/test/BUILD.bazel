@@ -25,6 +25,7 @@ jest_test(
     data = [
         ":test_lib",
         "//:jest.ts.config.js",
+        "@npm//c8",
     ],
     tags = [
         # Need to set the pwd to avoid jest needing a runfiles helper

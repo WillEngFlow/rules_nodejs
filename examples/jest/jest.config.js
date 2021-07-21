@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+const config = {
   testEnvironment: 'node',
   haste: {
     enableSymlinks: true,
@@ -12,3 +12,16 @@ module.exports = {
       {'^.+\\.[jt]sx?$': ['babel-jest', {configFile: path.resolve(__dirname, 'babel.config.js')}]},
   testMatch: ['**/*.test.js']
 };
+
+if (process.env.NODE_V8_COVERAGE) {
+  const coverageConfig = {
+    collectCoverage: true,
+    coverageReporters: [["lcovonly", {"file": "jest_cov.dat"}]],
+    collectCoverageFrom: ['./ts/src/*.ts'],
+    coverageDirectory: process.env.NODE_V8_COVERAGE,
+  };
+
+  Object.assign(config, coverageConfig);
+}
+
+module.exports = config;
